@@ -1,0 +1,5 @@
+replicaCount: 2
+
+image:
+  repository: NVKQ2022/canary-app
+  tag: "1360329"

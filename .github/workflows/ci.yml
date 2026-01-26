@@ -1,0 +1,50 @@
+name: Canary CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  IMAGE: NVKQ2022/canary-demo-app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set tag
+      run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV |
+           echo $GITHUB_ENV
+
+
+
+    # steps:
+    # - uses: actions/checkout@v4
+
+    # - name: Set tag
+    #   run: echo "TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+    # - name: Login DockerHub
+    #   uses: docker/login-action@v3
+    #   with:
+    #     username: ${{ secrets.DOCKER_USER }}
+    #     password: ${{ secrets.DOCKER_PASS }}
+
+    # - name: Build & push
+    #   run: |
+    #     docker build --build-arg VERSION=$TAG -t $IMAGE:$TAG ./app
+    #     docker push $IMAGE:$TAG
+
+    # - name: Update canary tag
+    #   run: |
+    #     sed -i "s|canary:.*|canary:\n  tag: \"$TAG\"|" canary-chart/values.yaml
+
+    # - name: Commit
+    #   run: |
+    #     git config user.name github-actions
+    #     git config user.email github-actions@github.com
+    #     git add canary-chart/values.yaml
+    #     git commit -m "ci: update canary image $TAG" || true
+    #     git push

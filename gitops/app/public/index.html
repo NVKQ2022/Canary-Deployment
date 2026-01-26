@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canary Demo</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        .box { border: 2px solid #333; padding: 20px; display: inline-block; width: 300px;}
+        #version { font-size: 24px; font-weight: bold; color: blue; }
+        .btn { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #28a745; color: white; border: none; }
+        .error-log { color: red; height: 20px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Payment Service</h2>
+        <div id="version">Loading...</div>
+        <br>
+        <button class="btn" onclick="processPayment()">Process Payment ($50)</button>
+        <div id="log" class="error-log"></div>
+    </div>
+
+    <script>
+        let successCount = 0;
+        let failCount = 0;
+
+        async function processPayment() {
+            try {
+                // Call the Backend API
+                const res = await fetch('/api/pay', { method: 'POST' });
+                const data = await res.json();
+                
+                // Update UI based on Backend Response
+                document.getElementById('version').innerText = data.version;
+                
+                if (res.status === 200) {
+                    document.getElementById('log').innerText = "Success ✅";
+                    document.getElementById('log').style.color = "green";
+                } else {
+                    document.getElementById('log').innerText = "Payment Failed ❌";
+                    document.getElementById('log').style.color = "red";
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        // Auto-click every 1 second to generate background traffic for Prometheus
+        setInterval(processPayment, 1000);
+    </script>
+</body>
+</html>
