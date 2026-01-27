@@ -1,6 +1,0 @@
-{
-  "appVersion": "v2.0.0",
-  "errorRatePercent": 0,
-  "latencyMs": 5000,
-  "simulateCpuSpike": false
-}
