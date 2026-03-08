@@ -1,7 +1,7 @@
 app:
   name: canary-demo-app
   namespace: canary
-  image: NVKQ2022/canary-demo-app
+  image: docker.io/nvkq2022/canary-demo-app
   tag: "13ecaf3"
   version: v1
   targetPort: 80
