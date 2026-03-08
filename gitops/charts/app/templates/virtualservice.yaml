@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Values.traffic.virtualservice.name }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - {{ .Values.traffic.gateway.name }}
+  http:
+  - route:
+    - destination:
+        host: {{ .Values.traffic.service.name }}
+        subset: stable
+      weight: 100
+    - destination:
+        host: {{ .Values.traffic.service.name }}
+        subset: canary
+      weight: 0
