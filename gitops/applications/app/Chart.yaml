@@ -1,11 +1,11 @@
 apiVersion: v2
-name: gitops
+name: app
 description: A Helm chart for Kubernetes
 
 
 version: 0.1.0
 
 dependencies:
-  - name: app
+  - name: argo
     version: 0.1.0
-    repository: "file://applications/app"
+    repository: "file://charts/app"

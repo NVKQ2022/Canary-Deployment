@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: {{ .Values.canary-traffic.gateway.name}}
+
+spec:
+  selector:
+    istio: {{ .Values.canary-traffic.gateway.}}
+
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"

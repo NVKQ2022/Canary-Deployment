@@ -1,0 +1,9 @@
+dependencies:
+- name: argo
+  repository: file://charts/argo
+  version: 0.1.0
+- name: canary-traffic
+  repository: file://charts/canary-traffic
+  version: 0.1.0
+digest: sha256:12d7bdd18a087eb2b85b81f0fe9465b6ce800f073d7fd88ee965659f5d525ef4
+generated: "2026-03-08T11:43:07.985706581+07:00"

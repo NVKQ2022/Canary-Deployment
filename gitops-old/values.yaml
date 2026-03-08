@@ -1,0 +1,55 @@
+app:
+  name: canary-demo-app
+  namespace: canary
+  image: NVKQ2022/canary-demo-app
+  tag: "13ecaf3"
+  version: v1
+  targetPort: 80
+
+replicaCount: 1
+
+
+argo:
+  spec:
+    source:
+      repoURL: "https://github.com/NVKQ2022/Canary-Deployment"
+      path: gitops
+      targetRevision: main
+
+
+  rollout:
+    steps:
+      - weight: 20
+        pause: 60
+      - weight: 50
+        pause: 120
+      - weight: 100
+        pause: 0
+
+
+canary-traffic:
+  service:
+    name: canary-demo-app-service
+    port: 80
+    targetPort: 80
+
+  virtualservice:
+    name: canary-demo-app-virtualservice
+
+  destinationrule:
+    name: canary-demo-app-destinationrule
+
+  gateway:
+    name: canary-demo-app-gateway
+    spec:
+      selector:
+        istio: ingressgateway
+
+      servers:
+        - port:
+            number: 80
+            name: http
+            protocol: HTTP
+          hosts:
+            - "*"
+
