@@ -13,7 +13,7 @@ argo:
   spec:
     source:
       repoURL: "https://github.com/NVKQ2022/Canary-Deployment"
-      path: gitops/applications/app
+      path: gitops
       targetRevision: main
 
 
