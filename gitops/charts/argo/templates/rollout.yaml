@@ -1,0 +1,44 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        version: {{ .Values.rollout.version }}
+    spec:
+      containers:
+      - name: {{ .Values.app.name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+
+  strategy:
+    canary:
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Values.destination.virtualServiceName }}
+            routes:
+            - http
+          destinationRule:
+            name: {{ .Values.destination.destinationRuleName }}
+            stableSubsetName: stable
+            canarySubsetName: canary
+
+      steps:
+      {{- range .Values.rollout.steps }}
+      - setWeight: {{ .weight }}
+        {{- if .pause }}
+        - pause: { duration: {{ .pause }} }
+        {{- end }}
+      {{- end }}

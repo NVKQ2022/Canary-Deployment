@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.app.name }}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.spec.source.repoURL }}
+    path: {{ .Values.spec.source.path }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.app.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: {{ .Values.app.name }}-argo
+# spec:
+#   project: default
+#   source:
+#     repoURL: "{{ .Values.repo.url }}"
+#     targetRevision: "{{ .Values.repo.branch }}"
+#     path: "{{ .Values.repo.path }}"
+#     helm:
+#       values: |-
+#         image.repository: {{ .Values.image.repository }}
+#         image.tag: {{ .Values.image.tag }}
+#         replicaCount: {{ .Values.replicaCount }}
+#   destination:
+#     server: "{{ .Values.destination.server }}"
+#     namespace: "{{ .Values.destination.namespace }}"
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

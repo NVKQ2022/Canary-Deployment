@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.canary-traffic.service.name }}
+spec:
+  selector:
+    app: {{ .Values.app.name }}
+  ports:
+  - port: {{ .Values.canary-traffic.service.port }}
+    targetPort: {{ .Values.canary-traffic.service.targetPort }}

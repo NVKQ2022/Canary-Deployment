@@ -1,0 +1,12 @@
+apiVersion: v2
+name: gitops
+version: 0.1.0
+
+dependencies:
+  - name: argo
+    version: 0.1.0
+    repository: "file://charts/argo"
+
+  - name: canary-chart
+    version: 0.1.0
+    repository: "file://charts/canary-chart"
