@@ -2,6 +2,8 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: {{ .Values.traffic.virtualservice.name }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade #make it install first
 spec:
   hosts:
   - "*"
