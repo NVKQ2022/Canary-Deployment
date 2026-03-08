@@ -10,7 +10,8 @@ spec:
   gateways:
   - {{ .Values.traffic.gateway.name }}
   http:
-  - route:
+  - name: http
+    route:
     - destination:
         host: {{ .Values.traffic.service.name }}
         subset: stable
