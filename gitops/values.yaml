@@ -1,0 +1,6 @@
+global:
+  gateway:
+    name: canary-demo-app-gateway
+    spec:
+      selector:
+        istio: ingressgateway

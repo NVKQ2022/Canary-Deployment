@@ -1,6 +1,0 @@
-dependencies:
-- name: app
-  repository: file://charts/app
-  version: 0.1.0
-digest: sha256:3caa51b9021d927324a97ca41cd0be22d70073575fbf9a6aaa9cb6e399772efc
-generated: "2026-03-08T15:58:34.700377866+07:00"

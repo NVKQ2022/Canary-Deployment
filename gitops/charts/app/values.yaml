@@ -1,3 +1,7 @@
+global:
+  gateway:
+    name: canary-demo-app-gateway
+
 app:
   name: canary-demo-app
   namespace: canary
@@ -38,8 +42,3 @@ traffic:
 
   destinationrule:
     name: canary-demo-app-destinationrule
-  gateway:
-    name: canary-demo-app-gateway
-    spec:
-      selector:
-        istio: ingressgateway

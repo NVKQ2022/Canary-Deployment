@@ -8,7 +8,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - {{ .Values.traffic.gateway.name }}
+  - {{ .Values.global.gateway.name }}
   http:
   - name: http
     route:

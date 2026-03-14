@@ -1,11 +1,11 @@
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
-  name: {{ .Values.traffic.gateway.name }}
+  name: {{ .Values.global.gateway.name }}
 
 spec:
   selector:
-    istio: {{ .Values.traffic.gateway.spec.selector.istio }}
+    istio: {{ .Values.global.gateway.spec.selector.istio }}
 
   servers:
     - port:
